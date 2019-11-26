@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-nltk = "==3.2.5"
+nltk = "==3.4.5"
 PyDictionary = "==1.5.2"
 
 [requires]
