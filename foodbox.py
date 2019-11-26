@@ -2,8 +2,9 @@ import argparse, random, re, sys, warnings
 from nltk.corpus import wordnet as wn
 from PyDictionary import PyDictionary
 
-warnings.simplefilter('ignore')
+warnings.simplefilter("ignore")
 dictionary = PyDictionary()
+
 
 def get_pydictionary_synonyms(word, missing_letters):
     synonyms = [x for x in dictionary.synonym(word) or [None] if x]
@@ -29,7 +30,9 @@ def foodbox_translate_word(word, missing_letters):
     if not any(char in word for char in missing_letters):
         return word
 
-    synonyms = get_wordnet_synonyms(word, missing_letters) or get_pydictionary_synonyms(word, missing_letters)
+    synonyms = get_wordnet_synonyms(word, missing_letters) or get_pydictionary_synonyms(
+        word, missing_letters
+    )
 
     if not synonyms:
         return word
@@ -42,9 +45,9 @@ def foodbox_translate_word(word, missing_letters):
 
 
 def foodbox_translate(text, missing_letters):
-    result = ''
+    result = ""
 
-    for token in re.split('(\w+)(?=\W)?', text):
+    for token in re.split("(\w+)(?=\W)?", text):
         result += foodbox_translate_word(token, missing_letters)
 
     return result
@@ -52,13 +55,17 @@ def foodbox_translate(text, missing_letters):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='Translates stdin by replacing any word with a forbidden character with a synonym of that word')
+        description="Translates stdin by replacing any word with a forbidden character with a synonym of that word"
+    )
 
-    parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
-    parser.add_argument('forbidden_letters', type=str,
-                        help='The letters that can\'t be used')
+    parser.add_argument(
+        "infile", nargs="?", type=argparse.FileType("r"), default=sys.stdin
+    )
+    parser.add_argument(
+        "forbidden_letters", type=str, help="The letters that can't be used"
+    )
 
     args = parser.parse_args()
 
     for line in sys.stdin:
-        print(foodbox_translate(line, args.forbidden_letters), end=None)
+        print(foodbox_translate(line, args.forbidden_letters), end="")

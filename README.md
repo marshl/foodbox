@@ -20,7 +20,7 @@ or
 - Download `wordnet` under `Copora` and `punkt` under `Models`
 
 ### Operation
-foodbox.py takes a list of forbidden characters as the first comand line argument
+foodbox.py takes a list of forbidden characters as the first command line argument
 and replaces from stdin any words that have a characters
 specified in the forbidden characters list and with a synonym
 that doesn't use that character.
